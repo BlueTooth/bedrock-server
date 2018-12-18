@@ -11,7 +11,7 @@ VOLUME /data
 WORKDIR /data
 ENV LD_LIBRARY_PATH=.
 
-EXPOSE 19132
+EXPOSE 19132/udp
 
 CMD curl https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.0.24.zip --output bedrock-server.zip && \
 unzip -u bedrock-server.zip && \
