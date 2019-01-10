@@ -3,7 +3,7 @@ FROM ubuntu:latest
 MAINTAINER BlueTooth
 
 RUN apt-get update && \
-apt-get install -y unzip wget libssl1.0.0 && \
+apt-get install -y unzip wget curl libcurl4 libssl1.0.0 && \
 rm -rf /var/lib/apt/lists/* && \
 mkdir /data
 
