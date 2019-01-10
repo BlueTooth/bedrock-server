@@ -24,4 +24,4 @@ echo copy server: $? && \
 rm -rf /tmp/bedrock-server* && \
 echo remove server.zip: $?
 
-CMD ./bedrock_server
+CMD pwd && ll &&./bedrock_server
