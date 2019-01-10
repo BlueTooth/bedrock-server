@@ -15,7 +15,8 @@ EXPOSE 19132/udp
 
 ENTRYPOINT VER=`wget -qO- https://minecraft.net/de-de/download/server/bedrock/ | sed -l 1 -n 's/.*-\([1-9.]*\)\.zip.*/\1/p' | head -n 1` && \
 wget -q --output-document=/tmp/bedrock-server.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-$VER.zip && \
-unzip -o /tmp/bedrock-server.zip -d /data/ && \
-rm -rf /tmp/bedrock-server.zip
+unzip -q /tmp/bedrock-server.zip -d /tmp/bedrock-server/ && \
+cp -rf /tmp/bedrock-server/* . && \
+rm -rf /tmp/bedrock-server*
 
 CMD ./bedrock_server
