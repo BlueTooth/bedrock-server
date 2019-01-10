@@ -13,7 +13,7 @@ ENV LD_LIBRARY_PATH=.
 
 EXPOSE 19132/udp
 
-CMD curl https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.0.24.zip --output bedrock-server.zip && \
+CMD curl https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip --output bedrock-server.zip && \
 unzip -u bedrock-server.zip && \
 rm -rf bedrock-server.zip && \
 ./bedrock_server
