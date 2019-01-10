@@ -3,7 +3,7 @@ FROM ubuntu:latest
 MAINTAINER BlueTooth
 
 RUN apt-get update && \
-apt-get install -y unzip curl libcurl4 libssl1.0.0 && \
+apt-get install -y unzip wget && \
 rm -rf /var/lib/apt/lists/* && \
 mkdir /data
 
@@ -13,7 +13,9 @@ ENV LD_LIBRARY_PATH=.
 
 EXPOSE 19132/udp
 
-CMD curl https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip --output bedrock-server.zip && \
+ENTRYPOINT VER=`wget -qO- https://minecraft.net/de-de/download/server/bedrock/ | sed -l 1 -n 's/.*-\([1-9.]*\)\.zip.*/\1/p' | head -n 1` && \
+wget --output-document=bedrock-server.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-$VER.zip && \
 unzip -u bedrock-server.zip && \
-rm -rf bedrock-server.zip && \
-./bedrock_server
+rm -rf bedrock-server.zip
+
+CMD ./bedrock_server
