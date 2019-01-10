@@ -14,9 +14,14 @@ ENV LD_LIBRARY_PATH=.
 EXPOSE 19132/udp
 
 ENTRYPOINT VER=`wget -qO- https://minecraft.net/de-de/download/server/bedrock/ | sed -l 1 -n 's/.*-\([1-9.]*\)\.zip.*/\1/p' | head -n 1` && \
-wget --output-document=/tmp/bedrock-server.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-$VER.zip && \
-unzip /tmp/bedrock-server.zip -d /tmp/bedrock-server/ && \
-cp -rfv /tmp/bedrock-server/* . && \
-rm -rfv /tmp/bedrock-server*
+echo get server-version: $? && \
+wget -q --output-document=/tmp/bedrock-server.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-$VER.zip && \
+echo download newest server.zip: $? && \
+unzip -q /tmp/bedrock-server.zip -d /tmp/bedrock-server/ && \
+echo unzip server.zip: $? && \
+cp -rf /tmp/bedrock-server/* . && \
+echo copy server: $? && \
+rm -rf /tmp/bedrock-server* && \
+echo remove server.zip: $?
 
 CMD ./bedrock_server
