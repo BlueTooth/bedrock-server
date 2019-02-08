@@ -7,9 +7,9 @@ apt-get install -y unzip wget curl libcurl4 libssl1.0.0 && \
 rm -rf /var/lib/apt/lists/* && \
 mkdir /data
 
+COPY ./init_server.sh /
 VOLUME /data
 WORKDIR /data
-COPY ./init_server.sh /
 ENV LD_LIBRARY_PATH=.
 
 EXPOSE 19132/udp
