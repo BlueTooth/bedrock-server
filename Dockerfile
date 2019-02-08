@@ -9,9 +9,9 @@ mkdir /data
 
 VOLUME /data
 WORKDIR /data
-COPY ./init_server.sh /data
+COPY ./init_server.sh /
 ENV LD_LIBRARY_PATH=.
 
 EXPOSE 19132/udp
 
-CMD ./init_server.sh
+CMD /init_server.sh
