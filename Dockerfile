@@ -9,12 +9,9 @@ mkdir /data
 
 VOLUME /data
 WORKDIR /data
+COPY ./init_server.sh /data
 ENV LD_LIBRARY_PATH=.
 
 EXPOSE 19132/udp
 
-CMD VER=`wget -qO- https://minecraft.net/de-de/download/server/bedrock/ | sed -l 1 -n 's/.*-\([0-9.]*\)\.zip.*/\1/p' | head -n 1` && \
-wget -q --output-document=bedrock-server.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-$VER.zip && \
-unzip -oq bedrock-server.zip && \
-rm -f bedrock-server.zip && \ 
-./bedrock_server
+CMD ./init_server.sh
