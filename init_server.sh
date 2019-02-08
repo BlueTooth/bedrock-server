@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo search bedrock-server-version...
 VERSION=`wget -qO- https://minecraft.net/de-de/download/server/bedrock/ | sed -l 1 -n 's/.*-\([0-9.]*\)\.zip.*/\1/p' | head -n 1`
