@@ -9,7 +9,10 @@ echo search bedrock-server-version...
 VERSION=`wget -qO- https://www.minecraft.net/en-us/download/server/bedrock/ | sed -l 1 -n 's/.*-\([0-9.]*\)\.zip.*/\1/p' | head -n 1`
 echo found bedrock-server-version $VERSION
 
-if [ "$VERSION" != "$VERSION_INSTALLED" ]
+if [ "$VERSION" == "" ]
+then
+ echo version not available
+elif [ "$VERSION" != "$VERSION_INSTALLED" ]
 then
  echo newer version available...
  echo doing update $VERSION_INSTALLED to $VERSION
