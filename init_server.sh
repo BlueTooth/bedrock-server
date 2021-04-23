@@ -9,7 +9,7 @@ echo search bedrock-server-version...
 VERSION=`wget -qO- https://www.minecraft.net/en-us/download/server/bedrock/ | sed -l 1 -n 's/.*-\([0-9.]*\)\.zip.*/\1/p' | head -n 1`
 echo found bedrock-server-version $VERSION
 
-if [ -z "$VERSION" ]
+if [ "$VERSION" = "" ]
 then
  echo version not available
 elif [ "$VERSION" != "$VERSION_INSTALLED" ]
@@ -28,6 +28,9 @@ then
  echo remove bedrock-server.zip...
  rm -f bedrock-server.zip
  echo bedrock-server.zip removed
+ 
+ echo get more rights to executable
+ chmod 777 bedrock_server
  
  echo $VERSION > $VERSION_FILE
 fi
