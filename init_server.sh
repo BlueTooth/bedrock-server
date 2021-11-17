@@ -6,7 +6,7 @@ VERSION_INSTALLED=$(head -n 1 $VERSION_FILE)
 echo installed bedrock-server-version $VERSION_INSTALLED
 
 echo search bedrock-server-version...
-VERSION=`curl -s https://www.minecraft.net/en-us/download/server/bedrock | grep -oP '([0-9.])*(?=\.zip)' | head -n 1`
+VERSION=`curl -s -H "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" https://www.minecraft.net/en-us/download/server/bedrock | grep -oP '([0-9.])*(?=\.zip)' | head -n 1`
 echo found bedrock-server-version $VERSION
 
 if [ "$VERSION" = "" ]
