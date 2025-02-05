@@ -5,7 +5,7 @@ MAINTAINER BlueTooth
 COPY ./init_server.sh /
 RUN chmod +x /init_server.sh && \
 apt-get update && \
-apt-get install -y unzip wget curl libcurl4 libssl1.1 && \
+apt-get install -y unzip wget curl libcurl4 libssl3 && \
 rm -rf /var/lib/apt/lists/* && \
 mkdir /data
 
