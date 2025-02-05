@@ -1,8 +1,5 @@
 #!/bin/sh
-VERSION_FILE=version.txt
-
-touch $VERSION_FILE
-VERSION_INSTALLED=$(head -n 1 $VERSION_FILE)
+VERSION_INSTALLED=$(cat Dedicated_Server.txt | grep -oP 'Version: ([0-9.]*)' | grep -oP '[0-9.]*')
 echo installed bedrock-server-version $VERSION_INSTALLED
 
 echo search bedrock-server-version...
@@ -33,8 +30,6 @@ then
   
   echo get more rights to executable
   chmod 777 bedrock_server
-  
-  echo $VERSION > $VERSION_FILE
  else
   echo download bedrock-server-$VERSION.zip failed
  fi
