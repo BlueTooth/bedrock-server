@@ -18,7 +18,7 @@ then
  echo doing update $VERSION_INSTALLED to $VERSION
  
  echo download bedrock-server-$VERSION.zip...
- wget -q --output-document=bedrock-server.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-$VERSION.zip
+ wget -q --output-document=bedrock-server.zip https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-$VERSION.zip
  echo saved in /data/bedrock-server.zip
 
  echo unzip bedrock-server.zip...
