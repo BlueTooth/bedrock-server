@@ -28,6 +28,14 @@ downloadUnzipAndRemove () {
   rm -f "file.zip"
 }
 
+getPackId () {
+  cat /data/resource_packs/$1/manifest.json | grep -Po '(?<=uuid": ")([0-9a-z-])*' | head -n 1
+}
+
+getVersion () {
+  cat /data/resource_packs/$1/manifest.json | grep -Po '(?<=version": \[)([0-9, ])*' | head -n 1
+}
+
 VERSION_FILE=version.txt
 
 touch $VERSION_FILE
@@ -55,23 +63,23 @@ then
 
   downloadUnzipAndRemove `curl "${curlArgs[@]}" https://minecraftrtx.net/ | grep -oP '([A-Za-z-:/.])*Normals([0-9.v-])*mcpack' | head -n 1` /data/resource_packs/vanilla-RTX-Normals
   downloadUnzipAndRemove `curl "${curlArgs[@]}" https://minecraftrtx.net/ | grep -oP '([0-9A-Za-z-:/.])*mcpack' | head -n 1` /data/resource_packs/vanilla-RTX
-
-  PACK_ID_NORMALS=`cat /data/resource_packs/vanilla-RTX-Normals/manifest.json | grep -Po '(?<=uuid": ")([0-9a-z-])*' | head -n 1`
-  VERSION_NORMALS=`cat /data/resource_packs/vanilla-RTX-Normals/manifest.json | grep -Po '(?<=version": \[)([0-9, ])*' | head -n 1`
-  PACK_ID_RTX=`cat /data/resource_packs/vanilla-RTX/manifest.json | grep -Po '(?<=uuid": ")([0-9a-z-])*' | head -n 1`
-  VERSION_RTX=`cat /data/resource_packs/vanilla-RTX/manifest.json | grep -Po '(?<=version": \[)([0-9, ])*' | head -n 1`
+  downloadUnzipAndRemove "https://images.nvidia.com/content/minecraft-with-rtx-beta-resource-packs/nvidia-pbr-example-texturesets-pixelart-feb-2-2021-final.mcpack" /data/resource_packs/nvidia
 
   echo "add world_resource_packs.json"
   mkdir -p "worlds/Bedrock level"
   cat > "worlds/Bedrock level/world_resource_packs.json" <<EOF
 [
   {
-    "pack_id": "$PACK_ID_NORMALS",
-    "version": [$VERSION_NORMALS]
+    "pack_id": "$(getPackId vanilla-RTX-Normals)",
+    "version": [$(getVersion vanilla-RTX-Normals)]
   },
   {
-    "pack_id": "$PACK_ID_RTX",
-    "version": [$VERSION_RTX]
+    "pack_id": "$(getPackId vanilla-RTX)",
+    "version": [$(getVersion vanilla-RTX)]
+  },
+  {
+    "pack_id": "$(getPackId nvidia)",
+    "version": [$(getVersion nvidia)]
   }
 ]
 EOF
