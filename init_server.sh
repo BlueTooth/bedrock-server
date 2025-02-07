@@ -54,17 +54,24 @@ then
   echo $VERSION > $VERSION_FILE
 
   downloadUnzipAndRemove `curl "${curlArgs[@]}" https://minecraftrtx.net/ | grep -oP '([A-Za-z-:/.])*Normals([0-9.v-])*mcpack' | head -n 1` /data/resource_packs/vanilla-RTX-Normals
+  downloadUnzipAndRemove `curl "${curlArgs[@]}" https://minecraftrtx.net/ | grep -oP '([0-9A-Za-z-:/.])*mcpack' | head -n 1` /data/resource_packs/vanilla-RTX
 
-  PACK_ID=`cat /data/resource_packs/vanilla-RTX-Normals/manifest.json | grep -Po '(?<=uuid": ")([0-9a-z-])*' | head -n 1`
-  VERSION_NR=`cat /data/resource_packs/vanilla-RTX-Normals/manifest.json | grep -Po '(?<=version": \[)([0-9, ])*' | head -n 1`
+  PACK_ID_NORMALS=`cat /data/resource_packs/vanilla-RTX-Normals/manifest.json | grep -Po '(?<=uuid": ")([0-9a-z-])*' | head -n 1`
+  VERSION_NORMALS=`cat /data/resource_packs/vanilla-RTX-Normals/manifest.json | grep -Po '(?<=version": \[)([0-9, ])*' | head -n 1`
+  PACK_ID_RTX=`cat /data/resource_packs/vanilla-RTX/manifest.json | grep -Po '(?<=uuid": ")([0-9a-z-])*' | head -n 1`
+  VERSION_RTX=`cat /data/resource_packs/vanilla-RTX/manifest.json | grep -Po '(?<=version": \[)([0-9, ])*' | head -n 1`
 
   echo "add world_resource_packs.json"
   mkdir -p "worlds/Bedrock level"
   cat > "worlds/Bedrock level/world_resource_packs.json" <<EOF
 [
   {
-    "pack_id": "$PACK_ID",
-    "version": [$VERSION_NR]
+    "pack_id": "$PACK_ID_NORMALS",
+    "version": [$VERSION_NORMALS]
+  },
+  {
+    "pack_id": "$PACK_ID_RTX",
+    "version": [$VERSION_RTX]
   }
 ]
 EOF
