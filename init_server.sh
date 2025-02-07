@@ -43,12 +43,12 @@ then
   echo version not available
 elif [ "$VERSION" != "$VERSION_INSTALLED" ]
 then
-  echo newer version available...
-  echo doing update $VERSION_INSTALLED to $VERSION
+  echo "newer version available..."
+  echo "doing update $VERSION_INSTALLED to $VERSION"
   
   downloadUnzipAndRemove "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-$VERSION.zip" /data
   
-  echo get more rights to executable
+  echo "get more rights to executable"
   chmod 777 bedrock_server
   
   echo $VERSION > $VERSION_FILE
@@ -56,8 +56,9 @@ then
   downloadUnzipAndRemove "https://images.nvidia.com/content/minecraft-with-rtx-beta-resource-packs/nvidia-pbr-example-texturesets-pixelart-feb-2-2021-final.mcpack" /data/resource_packs/nvidia
   downloadUnzipAndRemove "https://minecraftrtx.net/downloads/Vanilla-RTX-v1.21.80.mcpack" /data/resource_packs/vanilla-RTX
   downloadUnzipAndRemove "https://minecraftrtx.net/downloads/Vanilla-RTX-Normals-v1.21.80.mcpack" /data/resource_packs/vanilla-RTX-Normals
-  
-  cat > world_resoure_packs.json <<EOF
+
+  echo "add world_resoure_packs.json"
+  cat > "worlds/Bedrock level/world_resoure_packs.json" <<EOF
 [
  {
   "pack_id": "a1673412-cb04-4604-8000-04b6396afe80",
