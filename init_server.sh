@@ -70,16 +70,16 @@ then
   cat > "worlds/Bedrock level/world_resource_packs.json" <<EOF
 [
   {
-    "pack_id": "$(getPackId vanilla-RTX-Normals)",
-    "version": [$(getVersion vanilla-RTX-Normals)]
-  },
-  {
     "pack_id": "$(getPackId vanilla-RTX)",
     "version": [$(getVersion vanilla-RTX)]
   },
   {
     "pack_id": "$(getPackId nvidia)",
     "version": [$(getVersion nvidia)]
+  },
+  {
+    "pack_id": "$(getPackId vanilla-RTX-Normals)",
+    "version": [$(getVersion vanilla-RTX-Normals)]
   }
 ]
 EOF
