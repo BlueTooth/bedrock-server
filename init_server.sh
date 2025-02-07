@@ -74,9 +74,6 @@ then
 ]
 EOF
 
- else
-  echo download $1 failed
- fi
 fi
 
 echo start bedrock_server
