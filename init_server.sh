@@ -58,7 +58,7 @@ then
   downloadUnzipAndRemove "https://minecraftrtx.net/downloads/Vanilla-RTX-Normals-v1.21.80.mcpack" /data/resource_packs/vanilla-RTX-Normals
 
   echo "add world_resoure_packs.json"
-  touch "worlds/Bedrock level/world_resoure_packs.json"
+  mkdir -p "worlds/Bedrock level"
   cat > "worlds/Bedrock level/world_resoure_packs.json" <<EOF
 [
  {
