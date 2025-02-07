@@ -35,7 +35,7 @@ VERSION_INSTALLED=$(head -n 1 $VERSION_FILE)
 echo installed bedrock-server-version $VERSION_INSTALLED
 
 echo search bedrock-server-version...
-VERSION=`curl curl "${curlArgs[@]}" https://www.minecraft.net/en-us/download/server/bedrock | grep -oP '([0-9.])*(?=\.zip)' | head -n 1`
+VERSION=`curl "${curlArgs[@]}" https://www.minecraft.net/en-us/download/server/bedrock | grep -oP '([0-9.])*(?=\.zip)' | head -n 1`
 echo found bedrock-server-version $VERSION
 
 if [ "$VERSION" = "" ]
@@ -45,37 +45,28 @@ elif [ "$VERSION" != "$VERSION_INSTALLED" ]
 then
   echo "newer version available..."
   echo "doing update $VERSION_INSTALLED to $VERSION"
-  
-  downloadUnzipAndRemove "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-$VERSION.zip" /data
+
+  downloadUnzipAndRemove `curl "${curlArgs[@]}" https://www.minecraft.net/en-us/download/server/bedrock | grep -oP '([a-z.:/-])*linux([a-z0-9./-])*\.zip' | head -n 1` /data
   
   echo "get more rights to executable"
   chmod 777 bedrock_server
   
   echo $VERSION > $VERSION_FILE
 
-  downloadUnzipAndRemove "https://images.nvidia.com/content/minecraft-with-rtx-beta-resource-packs/nvidia-pbr-example-texturesets-pixelart-feb-2-2021-final.mcpack" /data/resource_packs/nvidia
-  downloadUnzipAndRemove "https://minecraftrtx.net/downloads/Vanilla-RTX-v1.21.80.mcpack" /data/resource_packs/vanilla-RTX
-  downloadUnzipAndRemove "https://minecraftrtx.net/downloads/Vanilla-RTX-Normals-v1.21.80.mcpack" /data/resource_packs/vanilla-RTX-Normals
+  downloadUnzipAndRemove `curl "${curlArgs[@]}" https://minecraftrtx.net/ | grep -oP '([A-Za-z-:/.])*Normals([0-9.v-])*mcpack' | head -n 1` /data/resource_packs/vanilla-RTX-Normals
 
   echo "add world_resource_packs.json"
   mkdir -p "worlds/Bedrock level"
   cat > "worlds/Bedrock level/world_resource_packs.json" <<EOF
 [
- {
-  "pack_id": "a1673412-cb04-4604-8000-04b6396afe80",
-  "version": [0, 10, 0]
- },
- {
-  "pack_id": "80036ba7-8e6a-4802-8934-22b236601123",
-  "version": [1, 21, 80]
- },
- {
-  "pack_id": "555ebb78-fa06-4ef7-a5f5-a3a8c3b968bf",
-  "version": [1, 21, 80]
- }
+  {
+    "pack_id": "555ebb78-fa06-4ef7-a5f5-a3a8c3b968bf",
+    "version": [1, 21, 80]
+  }
 ]
 EOF
 
+  sed -i -e "/server-name=/ s/=.*/=BlueTooth Server/" -e "/texturepack-required=/ s/=.*/=true/"  server.properties
 fi
 
 echo start bedrock_server
