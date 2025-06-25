@@ -43,7 +43,7 @@ VERSION_INSTALLED=$(head -n 1 $VERSION_FILE)
 echo installed bedrock-server-version $VERSION_INSTALLED
 
 echo search bedrock-server-version...
-VERSION=`curl "${curlArgs[@]}" https://www.minecraft.net/en-us/download/server/bedrock | grep -oP '([0-9.])*(?=\.zip)' | head -n 1`
+VERSION=`curl "${curlArgs[@]}" https://net-secondary.web.minecraft-services.net/api/v1.0/download/links | grep -oP '([0-9.])*(?=\.zip)' | head -n 1`
 echo found bedrock-server-version $VERSION
 
 if [ "$VERSION" = "" ]
@@ -54,7 +54,7 @@ then
   echo "newer version available..."
   echo "doing update $VERSION_INSTALLED to $VERSION"
 
-  downloadUnzipAndRemove `curl "${curlArgs[@]}" https://www.minecraft.net/en-us/download/server/bedrock | grep -oP '([a-z.:/-])*linux([a-z0-9./-])*\.zip' | head -n 1` /data
+  downloadUnzipAndRemove `curl "${curlArgs[@]}" https://net-secondary.web.minecraft-services.net/api/v1.0/download/links | grep -oP '([a-z.:/-])*linux([a-z0-9./-])*\.zip' | head -n 1` /data
   
   echo "get more rights to executable"
   chmod 777 bedrock_server
